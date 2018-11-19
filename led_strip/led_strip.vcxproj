@@ -119,11 +119,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\LEDStrip\Ledstrip.cpp" />
-    <ClCompile Include="..\..\LEDStrip\Led_strip.cpp" />
+    <ClInclude Include="Ledstrip.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\LEDStrip\Ledstrip.h" />
+    <ClCompile Include="Ledstrip.cpp" />
+    <ClCompile Include="Led_strip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
