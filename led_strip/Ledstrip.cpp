@@ -1,5 +1,5 @@
 #include "Ledstrip.h"
-#include <iostream>
+
 
 
 
@@ -159,3 +159,26 @@ void Ledstrip::draw_rotating_strip(float x, float y, int num_led, const char* co
     }
 
 }
+
+void Ledstrip::draw_Circle(float cx, float cy, float r, const char * color, float angle)
+{
+	ALLEGRO_COLOR c = get_allegroColor(color);
+	bitmp = al_create_bitmap(6, 6);
+	al_set_target_bitmap(bitmp);
+	
+	al_clear_to_color(c);
+	//al_draw_pixel(0,6, al_color_name("red"));
+	al_set_target_bitmap(al_get_backbuffer(disp));
+	for (float f = 0.0f; f <= 360.0f; f+=angle)
+	{
+		float a = f *( ALLEGRO_PI / 180);
+		float x = (r*std::cos(a)) + cx;
+		float y = (r*std::sin(a)) + cy;
+		
+		al_draw_rotated_bitmap(bitmp, 3, 3, x, y, a, 0);
+	}
+	al_flip_display();
+
+}
+
+ 
