@@ -18,7 +18,8 @@ public:
 	void draw_strip(float x, float y, int num_led, const char* color, float w = 5.0F, int num_row = 2);
 	void draw_LedCircle(float start_x, float start_y, float dm);
 	void draw_blinking_strip(float x , float y, int num_led, const char* color, float w = 5.0f, int num_row = 2, int cycle = 10);
-	void draw_rotating_strip(float x, float y, int num_led, const char* color, const char* ncolor, int great = 3, float w = 5.0f, int num_row = 2);
+	void draw_rotating_strip(float x, float y, int num_led, const char* color,  int great = 3, float w = 5.0f, int num_row = 2);
+	void draw_rotating_mcolorstrip(float x, float y, int num_led, const char* color, const char* ncolor = 0, int great = 3, float w = 5, int num_row = 2);
 	void draw_Circle(float cx, float cy, float r, const char* color, float angle = 5.0f);
 
 	ALLEGRO_DISPLAY *disp = NULL;
@@ -27,7 +28,7 @@ public:
 	ALLEGRO_BITMAP *bitmp;
 
 private:
-	ALLEGRO_COLOR get_allegroColor(const char* color);
+	ALLEGRO_COLOR getAllegroColor(const char* color);
 	char * _col;
 	ALLEGRO_COLOR _c;
 	float _dist;

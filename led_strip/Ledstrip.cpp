@@ -36,7 +36,7 @@ Ledstrip::~Ledstrip()
 void Ledstrip::draw_strip(float x, float y, int num_led, const char *color, float w , int num_row  )
 {
 	float red=0, green=0, blue =0;
-	_c = get_allegroColor(color);
+	_c = getAllegroColor(color);
 /*	if (al_color_name_to_rgb(color ,&red, &green, &blue))
 *	{
 *		std::cout << red << green << blue;
@@ -96,7 +96,7 @@ void Ledstrip::draw_LedCircle(float start_x, float start_y, float dm)
 }
 
 
-ALLEGRO_COLOR Ledstrip::get_allegroColor(const char* color)
+ALLEGRO_COLOR Ledstrip::getAllegroColor(const char* color)
 {
 	_c = al_color_name(color);
 	return _c;
@@ -115,13 +115,12 @@ void Ledstrip::draw_blinking_strip(float x, float y, int num_led, const char* co
     }
 }
 
-void Ledstrip::draw_rotating_strip(float x, float y, int num_led, const char* color, const char* ncolor, int great, float w, int num_row)
+void Ledstrip::draw_rotating_strip(float x, float y, int num_led, const char* color,  int great, float w, int num_row)
 {
     float y_max = y +(12.0f*(float)num_led);
     float x_max = 30*(float)num_row;
-    ALLEGRO_COLOR c = get_allegroColor(color);
-    ALLEGRO_COLOR nc = get_allegroColor(ncolor);
-   // draw_strip(x, y, num_led, color, w, num_row);
+    ALLEGRO_COLOR c = getAllegroColor(color);
+       // draw_strip(x, y, num_led, color, w, num_row);
     //al_flip_display();
 
     for (x; x <=x_max; x +=30.0f)
@@ -141,6 +140,9 @@ void Ledstrip::draw_rotating_strip(float x, float y, int num_led, const char* co
                 al_draw_filled_circle(x, f+24.0f, w, c);
                 al_rest(0.3);
                 al_flip_display();
+
+
+
             }
         }
         else
@@ -162,10 +164,10 @@ void Ledstrip::draw_rotating_strip(float x, float y, int num_led, const char* co
 
 void Ledstrip::draw_Circle(float cx, float cy, float r, const char * color, float angle)
 {
-	ALLEGRO_COLOR c = get_allegroColor(color);
+	ALLEGRO_COLOR c = getAllegroColor(color);
 	bitmp = al_create_bitmap(6, 6);
 	al_set_target_bitmap(bitmp);
-	
+
 	al_clear_to_color(c);
 	//al_draw_pixel(0,6, al_color_name("red"));
 	al_set_target_bitmap(al_get_backbuffer(disp));
@@ -174,11 +176,77 @@ void Ledstrip::draw_Circle(float cx, float cy, float r, const char * color, floa
 		float a = f *( ALLEGRO_PI / 180);
 		float x = (r*std::cos(a)) + cx;
 		float y = (r*std::sin(a)) + cy;
-		
+
 		al_draw_rotated_bitmap(bitmp, 3, 3, x, y, a, 0);
 	}
 	al_flip_display();
 
 }
 
- 
+ void Ledstrip::draw_rotating_mcolorstrip(float x, float y, int num_led, const char* color, const char*ncolor, int great, float w, int num_row)
+ {
+    float y_max = y +(12.0f*(float)num_led);
+    float x_max = 30*(float)num_row;
+    if (!ncolor)
+    draw_rotating_strip(x,y,num_led,color,w,great,num_row);
+    else
+    {
+        ALLEGRO_COLOR c = getAllegroColor(color);
+        ALLEGRO_COLOR nc =getAllegroColor(ncolor);
+        for (x; x <=x_max; x +=30.0f)
+        {
+        //std::cout << x << std::endl;
+        float _x = x;
+        int t = (int)_x % 20;
+        //std::cout << "t: " << t << std::endl;
+        if (t != 0)
+        {
+           //std::cout << "ungerade" << std::endl;
+            for (float f = y; f < y_max-3; f += 12.0f)
+            {
+                x = (float)x;
+                al_draw_filled_circle(x, f, w, c);
+                al_draw_filled_circle(x, f+12.0f, w, c);
+                al_draw_filled_circle(x, f+24.0f, w, c);
+                al_rest(0.3);
+                al_flip_display();
+                if (f >=12)
+                {
+
+                        al_draw_filled_circle(x,f-12,w,nc);
+                        al_draw_filled_circle(x, f, w, nc);
+                        al_draw_filled_circle(x, f+12, w, nc);
+                        al_rest(0.3);
+                        al_flip_display();
+
+                }
+
+
+
+            }
+        }
+        else
+        {
+            //std:: cout << "gerade" << std::endl;
+            for (float f = (y_max +12.0f); f >= (y + 24.0f); f-= 12.0f)
+            {
+                //x= (float)x;
+               al_draw_filled_circle(x, f, w, c);
+                al_draw_filled_circle(x, f-12.0f, w, c);
+                al_draw_filled_circle(x, f-24.0f, w, c);
+                al_rest(0.3);
+                al_flip_display();
+                if (f <= (y_max -24 ))
+                {
+                   float fl = y_max+24;
+                    al_draw_filled_circle(x, f+12,w,nc);
+                    al_draw_filled_circle(x, f,  w, nc);
+                    al_draw_filled_circle(x, fl-12, w, nc);
+                    al_rest(0.3);
+                    al_flip_display();
+                }
+            }
+        }
+    }
+    }
+ }

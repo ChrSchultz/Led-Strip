@@ -38,8 +38,8 @@ int main(int argc, char **argv)
 			break;
 		if (redraw && al_is_event_queue_empty(npixel->queue))
 		{
-			//for (int i = 0; i < 9; i++)
-			//{
+			for (int i = 0; i < 9; i++)
+			{
 				/*npixel->draw_strip(10.0, 10.0, 20,  col[i]);
 				al_flip_display();
 				al_rest(5.0);
@@ -55,12 +55,14 @@ int main(int argc, char **argv)
 
 				//npixel->draw_rotating_strip(10.0f, 10.0f, 20, col[i], col[i+1]);
 				//al_flip_display();
-				npixel->draw_Circle(300.0f, 200.0f, 100.0f, "blue");
+				//npixel->draw_Circle(300.0f, 200.0f, 100.0f, "blue");
+				npixel->draw_rotating_mcolorstrip(10,10,20,col[i],col[i+1]);
 
-			//}
+
 			redraw = false;
-		}
-	}
+            }
+        }
+    }
 
 	return 0;
 }
