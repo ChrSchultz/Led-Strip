@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 			break;
 		if (redraw && al_is_event_queue_empty(npixel->queue))
 		{
-			for (int i = 0; i < 9; i++)
+			for (int i = 0; i < 9; i+=2)
 			{
 				/*npixel->draw_strip(10.0, 10.0, 20,  col[i]);
 				al_flip_display();
