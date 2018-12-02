@@ -202,49 +202,70 @@ void Ledstrip::draw_Circle(float cx, float cy, float r, const char * color, floa
         if (t != 0)
         {
            //std::cout << "ungerade" << std::endl;
-            for (float f = y; f < y_max-3; f += 12.0f)
+            for (float f = y; f <=y_max ; f += 12.0f)
             {
                 x = (float)x;
                 al_draw_filled_circle(x, f, w, c);
                 al_draw_filled_circle(x, f+12.0f, w, c);
                 al_draw_filled_circle(x, f+24.0f, w, c);
+               // std::cout << " F: " << f;
                 al_rest(0.3);
                 al_flip_display();
-                if (f >=12)
-                {
 
-                        al_draw_filled_circle(x,f-12,w,nc);
-                        al_draw_filled_circle(x, f, w, nc);
-                        al_draw_filled_circle(x, f+12, w, nc);
+                if (f >=36)
+                {
+                        float fl = f-36;
+                        if ((f<=y_max)&& (f>=y_max -36))
+                        {
+                        fl =f-12;
+                        al_draw_filled_circle(x, fl+36, w, nc);
+                        }
+                        //std::cout << " fl: " << fl << std::endl;
+                        al_draw_filled_circle(x,fl+24,w,nc);
+                        al_draw_filled_circle(x, fl, w, nc);
+                        al_draw_filled_circle(x, fl+12, w, nc);
                         al_rest(0.3);
                         al_flip_display();
 
                 }
 
 
-
+           //al_rest(0.3);
+            //al_flip_display();
             }
+
         }
         else
         {
             //std:: cout << "gerade" << std::endl;
-            for (float f = (y_max +12.0f); f >= (y + 24.0f); f-= 12.0f)
+            for (float f = y_max ; f >= y  ; f-= 12.0f)
             {
-                //x= (float)x;
-               al_draw_filled_circle(x, f, w, c);
-                al_draw_filled_circle(x, f-12.0f, w, c);
-                al_draw_filled_circle(x, f-24.0f, w, c);
+                 //std::cout << " f: " << f;//x= (float)x;
+               al_draw_filled_circle(x, f+24, w, c);
+                al_draw_filled_circle(x, f+12, w, c);
+                al_draw_filled_circle(x, f, w, c);
                 al_rest(0.3);
                 al_flip_display();
-                if (f <= (y_max -24 ))
+               ;
+                if (f<=y_max-36)
                 {
-                   float fl = y_max+24;
-                    al_draw_filled_circle(x, f+12,w,nc);
-                    al_draw_filled_circle(x, f,  w, nc);
-                    al_draw_filled_circle(x, fl-12, w, nc);
+                   float fl=f+36;
+                   if ((f <=82) &&(f>=10))
+                       {
+                       fl =f;
+                       al_draw_filled_circle(x, fl+36, w, nc);
+                       }
+
+                   //std::cout << " fl: " << fl << std::endl;
+                    al_draw_filled_circle(x, fl, w, nc);
+                    al_draw_filled_circle(x, fl +24,  w, nc);
+                    al_draw_filled_circle(x, fl+12, w, nc);
                     al_rest(0.3);
                     al_flip_display();
+
                 }
+                //al_rest(0.3);
+                //al_flip_display();
             }
         }
     }
